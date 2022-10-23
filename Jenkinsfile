@@ -11,10 +11,12 @@ pipeline {
                 sh 'export PATH=$PATH:/opt/jdk1.8.0_201/bin:/opt/jdk1.8.0_201/jre/bin'
         */
                 //sh 'export ANDROID_HOME=/home/newhab/android_sdk'
+
+      steps{
 				sh 'echo ANDROID_HOME: $ANDROID_HOME'
 				sh 'echo JRE_HOME: $JRE_HOME'
 				sh 'echo JAVA_HOME：$JAVA_HOME'
-        
+      }
     }
 
     stage('Checkout Scm') {
