@@ -46,5 +46,12 @@ pipeline {
         sh './gradlew connectedAndroidTest assembleDebug '
       }
     }
+
+    stage('Gradle Test') {
+      steps {
+        //sh './gradlew clean build'
+        sh './gradlew connectedAndroidTest test '
+      }
+    }
   }
 }
