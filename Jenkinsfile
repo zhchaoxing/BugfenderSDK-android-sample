@@ -1,5 +1,5 @@
 pipeline {
-  agent linux android
+  agent linux && android
   stages {
     stage('Dependencies') {
 		/*
