@@ -42,7 +42,7 @@ pipeline {
 
     stage('Gradle Build') {
       steps {
-        sh 'gradle clean build'
+        //sh './gradlew clean build'
         sh './gradlew connectedAndroidTest assembleDebug '
       }
     }
