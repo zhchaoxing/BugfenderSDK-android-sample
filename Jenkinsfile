@@ -27,6 +27,8 @@ pipeline {
         # Enable exit on non 0
         set -e
 
+        sleep 20s # TODO: will optimize later
+
         ''' 
 				sh 'echo ANDROID_HOME: $ANDROID_HOME'
 				sh 'echo JRE_HOME: $JRE_HOME'
