@@ -13,12 +13,16 @@ pipeline {
                 //sh 'export ANDROID_HOME=/home/newhab/android_sdk'
 
       steps{
-        sh 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64'
-        sh 'export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre'
+        //sh 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64'
+        //sh 'export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre'
         //sh 'export PATH=$PATH:/opt/jdk1.8.0_201/bin:/opt/jdk1.8.0_201/jre/bin'
+        sh '''
+        kill $(ps aux | grep 'emulator' | awk '{print $2}')
+        ''' 
 				sh 'echo ANDROID_HOME: $ANDROID_HOME'
 				sh 'echo JRE_HOME: $JRE_HOME'
 				sh 'echo JAVA_HOME：$JAVA_HOME'
+        sh '~/android_sdk/emulator/emulator -avd Android25 -noaudio -no-window -no-boot-anim -accel on -ports 5556,5557 &'
       }
     }
 
@@ -30,7 +34,8 @@ pipeline {
 
     stage('Wait for android emulator') {
       steps {
-        sh '''ANDROID_SERIAL=emulator-5556
+        sh '''
+        ANDROID_SERIAL=emulator-5556
 
         # wait for emulator to be up and fully booted, unlock screen
 
@@ -56,5 +61,14 @@ pipeline {
         sh './gradlew connectedAndroidTest test '
       }
     }
+
+    stage('Kill Emulator') {
+      steps {
+       sh '''
+        kill $(ps aux | grep 'emulator' | awk '{print $2}')
+        ''' 
+      }
+    }
+
   }
 }
