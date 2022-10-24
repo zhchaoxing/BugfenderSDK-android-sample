@@ -17,6 +17,8 @@ pipeline {
         //sh 'export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre'
         //sh 'export PATH=$PATH:/opt/jdk1.8.0_201/bin:/opt/jdk1.8.0_201/jre/bin'
         sh '''
+        $ANDROID_HOME/platform-tools/adb kill-server
+
         # Disable exit on non 0
         set +e
 
@@ -29,7 +31,7 @@ pipeline {
 				sh 'echo ANDROID_HOME: $ANDROID_HOME'
 				sh 'echo JRE_HOME: $JRE_HOME'
 				sh 'echo JAVA_HOME：$JAVA_HOME'
-        sh '~/android_sdk/emulator/emulator -avd Android25 -noaudio -no-window -no-boot-anim -accel on -ports 5556,5557 &'
+        sh '$ANDROID_HOME/emulator/emulator -avd Android25 -noaudio -no-window -no-boot-anim -accel on -ports 5556,5557 &'
       }
     }
 
@@ -46,7 +48,7 @@ pipeline {
 
         # wait for emulator to be up and fully booted, unlock screen
 
-        $ANDROID_HOME/platform-tools/adb kill-server
+        
 
         $ANDROID_HOME/platform-tools/adb wait-for-device shell \'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82\'
 
