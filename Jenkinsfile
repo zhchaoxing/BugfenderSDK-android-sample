@@ -35,7 +35,7 @@ pipeline {
 
     stage('Checkout Scm') {
       steps {
-        git 'https://github.com/bugfender/BugfenderSDK-android-sample.git'
+        git 'https://github.com/zhchaoxing/BugfenderSDK-android-sample.git'
       }
     }
 
